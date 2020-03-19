@@ -25,4 +25,7 @@ def folder_merge(root_src_dir, root_dst_dir):
             else:
                 shutil.move(src_file, dst_dir)
 
-    
+user_src = input('input the source path: ')
+user_dst = input('input the destination path: ')
+
+folder_merge(user_src,user_dst)
