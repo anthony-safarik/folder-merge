@@ -10,7 +10,7 @@ import os
 import shutil
 
 #recursively merge two folders including subfolders
-def folder_merge(root_src_dir, root_dst_dir):
+def folder_merge(root_src_dir, root_dst_dir, remove_empty_dirs=False):
     for src_dir, dirs, files in os.walk(root_src_dir):
         dst_dir = src_dir.replace(root_src_dir, root_dst_dir, 1)
         if not os.path.exists(dst_dir):
@@ -24,8 +24,15 @@ def folder_merge(root_src_dir, root_dst_dir):
                 print('EXISTS')
             else:
                 shutil.move(src_file, dst_dir)
+        if remove_empty_dirs == True:
+            for dir in (src_dir,dst_dir):
+                if len(os.listdir(dir))==0:
+                    try:
+                        os.rmdir(dir)
+                    except:
+                        print('could not remove',dir)
 
 user_src = input('input the source path: ')
 user_dst = input('input the destination path: ')
 
-folder_merge(user_src,user_dst)
+folder_merge(user_src,user_dst,True)
